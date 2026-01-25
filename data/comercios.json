@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "nome": "Bar do Zé",
+    "categoria": "Bar",
+    "bairro": "Centro",
+   "endereco": "Rua das Palmeiras, 123",
+    "imagem": "bardoze/img/logo.png",
+    "url": "bardoze/bardoze.html",
+    "info": "Bebidas geladas ❄️",
+    "slug": "bar-do-ze"
+  },
+  {
+    "id": 2,
+    "nome": "Distribuidora Boa Gelada",
+    "categoria": "Distribuidora",
+    "bairro": "Vila Nova",
+    "imagem": "/boagelada/img/logo.png",
+     "url": "boagelada/index.html",
+    "info": "Cerveja sempre trincando 🍺",
+    "slug": "boa-gelada"
+  }
+]
