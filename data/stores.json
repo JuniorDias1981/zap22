@@ -1,0 +1,58 @@
+{
+  "stores": [
+    {
+      "id": "store1",
+      "slug": "bar-do-ze",
+      "name": "Bar do Zé",
+      "category": "Pizza",
+      "logo": " bardoze/img/logo2.png",
+      "whatsapp": "5522997407901",
+      "address": "Rua Exemplo, 123 - Centro",
+      "lat": -23.55052,
+      "lng": -46.633308,
+      "deliveryNeighborhoods": [
+        { "name": "Centro", "fee": 5.0 },
+        { "name": "Vila Nova", "fee": 7.0 },
+        { "name": "Jardins", "fee": 9.0 }
+      ],
+      "products": [
+  {
+    "id": "p1",
+    "name": "Cerveja antartica 290ml",
+    "desc": "",
+    "price": 5.9,
+    "category": "bebidas",
+    "image": "img/bardoze/antartica.jpg"
+  },
+  {
+    "id": "p2",
+    "name": "Coca cola 290ml",
+    "desc": "",
+    "price": 6.9,
+    "category": "Pizzas",
+    "image": "img/bardoze/coca.png"
+  }
+]
+    },
+    {
+      "id": "store2",
+      "slug": "bar-boa-gelada",
+      "name": "Bar boa gelada",
+      "category": "Mercado",
+      "logo": "img/boagelada/logo2.png",
+      "whatsapp": "5511988888888",
+      "address": "Av. Principal, 500 - Centro",
+      "lat": -23.5512,
+      "lng": -46.6329,
+      "deliveryNeighborhoods": [
+        { "name": "Centro", "fee": 4.0, "etaMin": 20, "etaMax": 40 },
+        { "name": "Santa Luzia", "fee": 6.0, "etaMin": 30, "etaMax": 55 }
+      ],
+      "products": [
+        { "id": "m1", "name": "Água 1,5L", "desc": "Sem gás", "price": 4.5, "category": "Bebidas" },
+        { "id": "m2", "name": "Pão de forma", "desc": "Tradicional", "price": 9.9, "category": "Padaria" },
+        { "id": "m3", "name": "Leite 1L", "desc": "Integral", "price": 6.2, "category": "Laticínios" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>zap22 • Loja</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+    <div class="topbar">
+    <div class="container header">
+      <a class="brand" href="index.html">
+  <img class="brand-logo" src="/img/logo.png" alt="Zap22" />
+</a>
+     <nav class="nav">
+  <a href="index.html" class="nav-btn active">Início</a>
+  <a href="sobre.html" class="nav-btn">Sobre</a>
+</nav>
+</nav>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="card" id="storeHeader">
+      <div class="row" style="align-items:flex-start; justify-content:space-between">
+        <div>
+          <h2 id="storeName" style="margin:0 0 6px 0">Carregando...</h2>
+          <div class="small" id="storeMeta"></div>
+
+          <div class="spacer"></div>
+
+          <!-- Troquei o antigo notice por um callout -->
+          <div class="callout warn" id="neighborhoodNotice">
+            <div class="title">📍 Selecione seu bairro</div>
+            <div class="small">A escolha do bairro libera os produtos e calcula taxa/prazo.</div>
+          </div>
+        </div>
+
+        <div style="min-width: 260px; width: 320px; max-width:100%">
+          <label class="small">Bairro para entrega</label>
+          <select id="neighborhoodSelect">
+            <option value="">Selecione...</option>
+          </select>
+          <div class="small" id="neighborhoodInfo" style="margin-top:8px"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="spacer"></div>
+
+    <div class="split">
+      <section>
+        <div class="card">
+          <h3 style="margin-top:0">Localização</h3>
+          <div class="small" id="storeAddress"></div>
+          <div class="spacer"></div>
+          <div class="map">
+            <iframe id="mapFrame" width="100%" height="100%" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+
+        <div class="spacer"></div>
+
+        <section id="produtos" class="card">
+          <div class="row" style="align-items:center; justify-content:space-between">
+            <h3 style="margin:0">Produtos</h3>
+            <span class="badge" id="productsBadge">...</span>
+          </div>
+          <div class="spacer"></div>
+
+          <!-- Mini destaque -->
+          <div class="callout info" style="margin-bottom:14px;">
+            <div class="title">💬 Finalização via WhatsApp</div>
+            <div class="small">Ao finalizar, abrimos o WhatsApp da loja com o pedido pronto.</div>
+          </div>
+
+          <div id="productsGrid" class="grid"></div>
+        </section>
+
+        <div class="spacer"></div>
+
+        <section id="checkout" class="card">
+          <h3 style="margin-top:0">Entrega</h3>
+
+<div class="row">
+  <div style="flex:1; min-width: 240px">
+    <label class="small">*Nome</label>
+    <input id="cName" class="input" required />
+  </div>
+
+  <div style="flex:1; min-width: 240px">
+    <label class="small">Telefone (opcional)</label>
+    <input id="cPhone" class="input" />
+  </div>
+</div>
+
+<div class="spacer"></div>
+
+<div class="row">
+  <div style="flex:2; min-width: 240px">
+    <label class="small">*Rua</label>
+    <input id="cStreet" class="input" required />
+  </div>
+
+  <div style="flex:1; min-width: 160px">
+    <label class="small">*Número</label>
+    <input id="cNumber" class="input" required />
+  </div>
+</div>
+
+<div class="spacer"></div>
+
+<div class="row">
+  <div style="flex:1; min-width: 240px">
+    <label class="small">Complemento</label>
+    <input id="cComp" class="input" />
+  </div>
+
+  <div style="flex:1; min-width: 240px">
+    <label class="small">Referência</label>
+    <input id="cRef" class="input" />
+  </div>
+</div>
+
+<div class="spacer"></div>
+
+<label class="small">*Forma de pagamento</label>
+<select id="cPayment" class="input" required>
+  <option value="">Selecione...</option>
+  <option value="Dinheiro">Dinheiro</option>
+  <option value="Pix">Pix</option>
+  <option value="Cartão">Cartão</option>
+</select>
+
+<div class="spacer"></div>
+
+<label class="small">Observações</label>
+<textarea id="cObs"></textarea>
+
+<div class="spacer"></div>
+
+<button id="finishBtn" class="btn primary glow block" disabled>
+  Finalizar no WhatsApp
+</button>
+
+<div class="small" id="checkoutHint" style="margin-top:10px"></div>
+        </section>
+      </section>
+
+      <aside class="cart">
+        <h3>Carrinho</h3>
+        <div class="small" id="cartStoreHint"></div>
+        <div class="spacer"></div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="totals" id="cartTotals"></div>
+      </aside>
+    </div>
+
+     <footer id="footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <h3>Zap22 Delivery</h3>
+      <span class="footer-slogan">Escolheu? Zap22 Delivery 🍻</span>
+    </div>
+
+    <div class="footer-links">
+      <h4>Redes sociais</h4>
+      <a
+        href="https://www.instagram.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Instagram Zap22"
+      >
+        Instagram
+      </a>
+    </div>
+
+    <div class="footer-copy">
+      <p>
+        © <span id="ano-footer"></span> Zap22 Delivery <br>
+        Todos os direitos reservados.
+      </p>
+      <p class="footer-dev">
+        Desenvolvido por
+        <a href="mailto:jrdias32@gmail.com">Junior Dias</a>
+      </p>
+    </div>
+  </div>
+</footer>
+  </main>
+
+  <script src="assets/app.js"></script>
+  <script>
+    Zap22.renderStore();
+  </script>
+</body>
+</html>

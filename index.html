@@ -1,84 +1,110 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Zap22 Delivery</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>zap22 • Delivery</title>
+  <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
-
- <!-- HEADER -->
-<header class="header">
-  <div class="logo">
-    <img src="assets/logo.png" alt="Zap22 Delivery">
- </div>
-
-  <nav class="nav">
+  <div class="topbar">
+    <div class="container header">
+      <a class="brand" href="index.html">
+  <img class="brand-logo" src="/img/logo.png" alt="Zap22" />
+</a>
+     <nav class="nav">
   <a href="index.html" class="nav-btn active">Início</a>
   <a href="sobre.html" class="nav-btn">Sobre</a>
 </nav>
+    </div>
+  </div>
 
-</header>
+ <section class="hero hero-bg">
+  <div class="hero-overlay"></div>
 
-
- <!-- HERO -->
-<section class="hero">
   <div class="hero-content">
+    <h1>Peça no zap22</h1>
     <h2>Bebidas em um só lugar</h2>
     <p>Encontre bares próximos e escolha o que você quer</p>
     <span>Descubra, escolha e aproveite 🍻</span>
+
+   
+    </div>
+
+    <div class="hero-note">
+      <span class="pill warn">Entrega por bairro</span>
+      <span class="pill success">Finaliza no WhatsApp</span>
+      <span class="pill info">Sem login</span>
+    </div>
+  </div>
+</section>
+</main>
+    <div class="spacer"></div>
+
+    <section id="como-funciona" class="accordion card">
+  <button class="accordion-btn" type="button" aria-expanded="false" aria-controls="como-panel">
+    <span class="accordion-title">Como funciona</span>
+    <span class="accordion-icon" aria-hidden="true">+</span>
+  </button>
+
+  <div id="como-panel" class="accordion-panel" hidden>
+    <ul class="accordion-list">
+      <li>Abra uma loja parceira.</li>
+      <li>Escolha seu bairro (taxa muda).</li>
+      <li>Adicione produtos ao carrinho.</li>
+      <li>Finalize: mensagem pronta no WhatsApp do parceiro.</li>
+      <li>Rápido, prático, sem cadastro ou login</li>
+    </ul>
   </div>
 </section>
 
+    <section id="parceiros">
+      <div class="row" style="align-items:center; justify-content:space-between;">
+        <h2 style="margin:0">Parceiros</h2>
+        <span class="badge" id="countBadge">Carregando...</span>
+      </div>
+      <div class="spacer"></div>
 
-  <!-- CARDS -->
-  <section class="cards" id="cards-container">
-    <!-- Cards carregados via JS -->
-  </section>
+      <div id="storesGrid" class="grid"></div>
+    </section>
 
- <!-- =========================
-     FOOTER
-========================== -->
-<footer id="footer">
+    <div class="spacer"></div>
+
+      <footer id="footer">
   <div class="footer-container">
-
-    <!-- BRAND -->
     <div class="footer-brand">
       <h3>Zap22 Delivery</h3>
-      <span class="footer-slogan">
-        Escolheu? Zap22 Delivery 🍻
-      </span>
+      <span class="footer-slogan">Escolheu? Zap22 Delivery 🍻</span>
     </div>
 
-    <!-- LINKS -->
     <div class="footer-links">
       <h4>Redes sociais</h4>
-      <a 
-        href="https://www.instagram.com" 
-        target="_blank" 
+      <a
+        href="https://www.instagram.com"
+        target="_blank"
         rel="noopener noreferrer"
-        aria-label="Instagram PedeAí"
+        aria-label="Instagram Zap22"
       >
         Instagram
       </a>
     </div>
 
-    <!-- COPY -->
     <div class="footer-copy">
       <p>
         © <span id="ano-footer"></span> Zap22 Delivery <br>
         Todos os direitos reservados.
       </p>
       <p class="footer-dev">
-        Desenvolvido por 
+        Desenvolvido por
         <a href="mailto:jrdias32@gmail.com">Junior Dias</a>
       </p>
     </div>
-
   </div>
 </footer>
 
-
-  <script src="js/main.js"></script>
+  <script src="assets/app.js"></script>
+  <script>
+    Zap22.renderHome();
+  </script>
 </body>
 </html>
