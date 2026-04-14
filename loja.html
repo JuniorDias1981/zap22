@@ -12,13 +12,63 @@
       <a class="brand" href="index.html">
   <img class="brand-logo" src="/img/logo.png" alt="Zap22" />
 </a>
+<button id="shareBtn" class="btn-share strong share-fixed">
+  📲 Compartilhar
+</button>
      <nav class="nav">
   <a href="index.html" class="nav-btn active">Início</a>
   <a href="sobre.html" class="nav-btn">Sobre</a>
 </nav>
-</nav>
     </div>
   </div>
+  <!-- =========================
+         CARRINHO FIXO (TOPO) + GAVETA
+    ========================== -->
+    <div class="cartbar" id="cartbar">
+      <button class="cartbar-toggle" id="cartToggle" type="button" aria-expanded="false" aria-controls="cartDrawer">
+        <span class="cartbar-left">
+          <span class="cartbar-title">🛒 Carrinho</span>
+          <span class="cartbar-meta">
+            <b id="cartbarCount">0</b> itens • <b id="cartbarTotal">R$ 0,00</b>
+          </span>
+        </span>
+        <span class="cartbar-cta">
+          <span class="cartbar-pill">ver</span>
+        </span>
+      </button>
+    </div>
+
+    <div class="cartdrawer" id="cartDrawer" hidden>
+      <div class="cartdrawer-inner">
+        <div class="cartdrawer-head">
+          <div>
+            <div class="cartdrawer-title">Seu carrinho</div>
+            <div class="small" id="cartStoreHint"></div>
+          </div>
+          <button class="btn secondary" id="cartClose" type="button">Fechar</button>
+        </div>
+
+        <div class="cart-items" id="cartItems"></div>
+
+        <div class="totals" id="cartTotals"></div>
+
+        <div class="spacer"></div>
+
+        <div class="row" style="justify-content:space-between; align-items:center">
+          <button id="clearBtn" class="btn danger" type="button">Limpar</button>
+          <button id="toCheckoutBtn" class="btn primary glow" type="button" disabled>Enviar pedido</button>
+        </div>
+
+        <div class="spacer"></div>
+
+        <div class="notice" id="neighborhoodNotice" style="display:none">
+          <b>Atenção:</b> selecione o bairro para calcular a taxa e liberar a finalização.
+        </div>
+
+        <div class="small" id="neighborhoodInfo"></div>
+        <div class="small" id="checkoutHint"></div>
+      </div>
+    </div>
 
   <main class="container">
     <section class="card" id="storeHeader">
@@ -32,7 +82,7 @@
           <!-- Troquei o antigo notice por um callout -->
           <div class="callout warn" id="neighborhoodNotice">
             <div class="title">📍 Selecione seu bairro</div>
-            <div class="small">A escolha do bairro libera os produtos e calcula taxa/prazo.</div>
+            <div class="small">A escolha do bairro calcula a taxa e libera a finalização.</div>
           </div>
         </div>
 
@@ -57,6 +107,7 @@
           <div class="map">
             <iframe id="mapFrame" width="100%" height="100%" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
+    
         </div>
 
         <div class="spacer"></div>
@@ -146,17 +197,11 @@
 <div class="small" id="checkoutHint" style="margin-top:10px"></div>
         </section>
       </section>
+</div>
+</main>
 
-      <aside class="cart">
-        <h3>Carrinho</h3>
-        <div class="small" id="cartStoreHint"></div>
-        <div class="spacer"></div>
-        <div class="cart-items" id="cartItems"></div>
-        <div class="totals" id="cartTotals"></div>
-      </aside>
-    </div>
 
-     <footer id="footer">
+ <footer id="footer">
   <div class="footer-container">
     <div class="footer-brand">
       <h3>Zap22 Delivery</h3>
@@ -166,7 +211,7 @@
     <div class="footer-links">
       <h4>Redes sociais</h4>
       <a
-        href="https://www.instagram.com"
+        href="https://www.instagram.com/zap22delivery/"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Instagram Zap22"
@@ -176,18 +221,22 @@
     </div>
 
     <div class="footer-copy">
-      <p>
-        © <span id="ano-footer"></span> Zap22 Delivery <br>
-        Todos os direitos reservados.
-      </p>
-      <p class="footer-dev">
-        Desenvolvido por
-        <a href="mailto:jrdias32@gmail.com">Junior Dias</a>
-      </p>
-    </div>
+  <h4>
+    © <span id="ano-footer"></span> 
+    <a href="mailto:zap22delivery@gmail.com">
+      Zap22 Delivery
+    </a>
+  </h4>
+
+  <p>Todos os direitos reservados.</p>
+
+  <p class="footer-dev">
+    Desenvolvido por 
+    <a href="mailto:jrdias32@gmail.com">Junior Dias</a>
+  </p>
+</div>
   </div>
 </footer>
-  </main>
 
   <script src="assets/app.js"></script>
   <script>

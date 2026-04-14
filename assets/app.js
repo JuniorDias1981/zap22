@@ -1,6 +1,32 @@
 const Zap22 = (() => {
   const DATA_URL = "data/stores.json";
 
+  const shareBtn = document.getElementById("shareBtn");
+
+if (shareBtn) {
+  shareBtn.addEventListener("click", async () => {
+    const url = window.location.href;
+    const title = document.title;
+
+    // 📱 Se navegador suporta share nativo (celular)
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: title,
+          text: "Olha essa loja no Zap22 👇",
+          url: url,
+        });
+      } catch (err) {
+        console.log("Compartilhamento cancelado");
+      }
+    } else {
+      // 💻 fallback (copia link)
+      navigator.clipboard.writeText(url);
+      alert("Link copiado! Agora é só colar 👍");
+    }
+  });
+}
+
   // ---------- Helpers ----------
   const money = (v) =>
     (Number(v || 0)).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -178,6 +204,14 @@ const Zap22 = (() => {
       cComp: qs("#cComp"),
       cRef: qs("#cRef"),
       cObs: qs("#cObs"),
+      cPayment: qs("#cPayment"),
+      checkoutSection: qs("#checkout"),
+      toCheckoutBtn: qs("#toCheckoutBtn"),
+      cartClose: qs("#cartClose"),
+      cartDrawer: qs("#cartDrawer"),
+      cartToggle: qs("#cartToggle"),
+      cartbarTotal: qs("#cartbarTotal"),
+      cartbarCount: qs("#cartbarCount"),
     };
 
     // Guard: se faltar container de produtos, não deixar o script quebrar silenciosamente
@@ -339,6 +373,15 @@ const Zap22 = (() => {
 
       // totals
       const totals = calcTotals(cart, fee);
+
+      // ===== Atualiza Cartbar (topo) =====
+      const itemsCount = cart.reduce((acc, it) => acc + it.qty, 0);
+      if (els.cartbarCount) els.cartbarCount.textContent = String(itemsCount);
+      if (els.cartbarTotal) els.cartbarTotal.textContent = money(totals.total);
+
+      // botão "Enviar pedido" (leva ao checkout)
+      if (els.toCheckoutBtn) els.toCheckoutBtn.disabled = cart.length === 0;
+
       if (els.cartTotals) {
         els.cartTotals.innerHTML = `
           <div class="line"><span>Subtotal</span><span>${money(totals.subtotal)}</span></div>
@@ -358,19 +401,64 @@ const Zap22 = (() => {
         }
       }
 
-      // ✅ Finalizar só libera com: bairro selecionado + carrinho não vazio
-      const canFinish = Boolean(neighborhoodName) && cart.length > 0;
+      // ✅ Finalizar só libera com:
+      // - carrinho não vazio
+      // - bairro selecionado
+      // - campos obrigatórios (*) preenchidos
+      const cartNotEmpty = cart.length > 0;
+      const hasNeighborhood = Boolean(neighborhoodName);
+
+      const nameOk = Boolean((els.cName?.value || "").trim());
+      const streetOk = Boolean((els.cStreet?.value || "").trim());
+      const numberOk = Boolean((els.cNumber?.value || "").trim());
+      const payOk = Boolean((els.cPayment?.value || "").trim());
+
+      const canFinish = cartNotEmpty && hasNeighborhood && nameOk && streetOk && numberOk && payOk;
       if (els.finishBtn) els.finishBtn.disabled = !canFinish;
 
       if (els.checkoutHint) {
         els.checkoutHint.textContent =
-          cart.length === 0
+          !cartNotEmpty
             ? "Adicione pelo menos 1 produto para finalizar."
-            : !neighborhoodName
+            : !hasNeighborhood
               ? "Escolha o bairro para calcular a taxa e liberar o finalizar."
-              : "Preencha os dados de entrega e finalize.";
+              : (!nameOk || !streetOk || !numberOk || !payOk)
+                ? "Preencha os campos obrigatórios (*) para finalizar."
+                : "Tudo certo! Clique em finalizar para abrir no WhatsApp.";
       }
+};
+
+
+    // ---------- Cart drawer (top) ----------
+    const openCartDrawer = () => {
+      if (!els.cartDrawer || !els.cartToggle) return;
+      els.cartDrawer.hidden = false;
+      els.cartToggle.setAttribute("aria-expanded", "true");
+      document.body.classList.add("cart-open");
     };
+
+    const closeCartDrawer = () => {
+      if (!els.cartDrawer || !els.cartToggle) return;
+      els.cartDrawer.hidden = true;
+      els.cartToggle.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("cart-open");
+    };
+
+    els.cartToggle?.addEventListener("click", () => {
+      const isOpen = els.cartToggle.getAttribute("aria-expanded") === "true";
+      if (isOpen) closeCartDrawer();
+      else openCartDrawer();
+    });
+
+    els.cartClose?.addEventListener("click", closeCartDrawer);
+
+    // Fecha ao clicar fora (mobile/desktop)
+    document.addEventListener("click", (e) => {
+      if (!els.cartDrawer || els.cartDrawer.hidden) return;
+      const withinDrawer = els.cartDrawer.contains(e.target);
+      const withinToggle = els.cartToggle?.contains(e.target);
+      if (!withinDrawer && !withinToggle) closeCartDrawer();
+    });
 
     // neighborhood change listener
     els.neighborhoodSelect?.addEventListener("change", () => {
@@ -379,18 +467,37 @@ const Zap22 = (() => {
       renderCartAndCheckout();
     });
 
+    // ✅ Atualiza o estado do botão Finalizar enquanto preenche
+    ["input", "change"].forEach((evt) => {
+      els.cName?.addEventListener(evt, renderCartAndCheckout);
+      els.cStreet?.addEventListener(evt, renderCartAndCheckout);
+      els.cNumber?.addEventListener(evt, renderCartAndCheckout);
+      els.cPayment?.addEventListener(evt, renderCartAndCheckout);
+    });
+
+
+    // Botão "Enviar pedido" (no carrinho do topo) -> rola até o formulário
+    els.toCheckoutBtn?.addEventListener("click", () => {
+      const target = els.checkoutSection || document.querySelector("#checkout");
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      // mantém o carrinho aberto para o usuário conferir, mas se quiser fechar, descomente:
+      // closeCartDrawer();
+    });
+
     // clear cart
     els.clearBtn?.addEventListener("click", () => {
       clearCart(slug);
+      writeNeighborhood(slug, "");
+      if (els.neighborhoodSelect) els.neighborhoodSelect.value = "";
       renderCartAndCheckout();
     });
-
-    // finish: build WhatsApp message
+// finish: build WhatsApp message
     els.finishBtn?.addEventListener("click", () => {
       const neighborhoodName = els.neighborhoodSelect?.value || "";
       const neighborhoodObj = (store.deliveryNeighborhoods || []).find((n) => n.name === neighborhoodName);
       const fee = neighborhoodObj?.fee || 0;
       const cart = readCart(slug);
+      const payment = (els.cPayment?.value || "").trim();
 
       if (!neighborhoodName) {
         alert("Selecione um bairro para finalizar o pedido.");
@@ -411,12 +518,28 @@ const Zap22 = (() => {
         obs: (els.cObs?.value || "").trim(),
       };
 
+      // valida obrigatórios aqui também
+      if (!customer.name || !delivery.street || !delivery.number || !payment) {
+        alert("Preencha os campos obrigatórios: Nome, Rua, Número e Forma de pagamento.");
+        return;
+      }
+
       const totals = calcTotals(cart, fee);
+
+      // ===== Atualiza Cartbar (topo) =====
+      const itemsCount = cart.reduce((acc, it) => acc + it.qty, 0);
+      if (els.cartbarCount) els.cartbarCount.textContent = String(itemsCount);
+      if (els.cartbarTotal) els.cartbarTotal.textContent = money(totals.total);
+
+      // botão "Enviar pedido" (leva ao checkout)
+      if (els.toCheckoutBtn) els.toCheckoutBtn.disabled = cart.length === 0;
+
 
       const lines = [];
       lines.push(`*Pedido via zap22*`);
       lines.push(`*Loja:* ${store.name}`);
       lines.push(`*Bairro:* ${neighborhoodName}`);
+      lines.push(`*Pagamento:* ${payment}`);
       lines.push("");
       lines.push(`*Itens:*`);
       cart.forEach((it) => lines.push(`- ${it.qty}x ${it.name} (${money(it.price)})`));
@@ -442,7 +565,8 @@ const Zap22 = (() => {
 
       const text = lines.join("\n");
       const url = `https://wa.me/${store.whatsapp}?text=${encodeURIComponent(text)}`;
-      window.open(url, "_blank");
+      const win = window.open(url, "_blank");
+      if (!win) window.location.href = url;
     });
 
     // initial render

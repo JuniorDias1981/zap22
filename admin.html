@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Admin - Zap22 Delivery</title>
+    <style>
+        :root { --primary: #FF6A00; --dark: #1E1E1E; --bg: #f0f2f5; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: #333; line-height: 1.6; padding: 20px; }
+        .container { max-width: 1000px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        
+        h1 { color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
+        .section { background: #fff; border: 1px solid #e1e4e8; padding: 20px; border-radius: 10px; margin-bottom: 25px; }
+        
+        .store-card { background: #f8f9fa; border: 2px solid #eee; padding: 20px; border-radius: 12px; margin-bottom: 30px; position: relative; }
+        .store-card:hover { border-color: var(--primary); }
+        
+        label { display: block; font-weight: bold; font-size: 0.85rem; margin-bottom: 5px; color: #555; }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 15px; box-sizing: border-box; }
+        
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+        .btn { cursor: pointer; border: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; transition: 0.3s; }
+        .btn-add { background: #2ecc71; color: white; margin-bottom: 10px; }
+        .btn-del { background: #e74c3c; color: white; padding: 8px 12px; font-size: 0.8rem; }
+        .btn-save { background: var(--primary); color: white; width: 100%; font-size: 1.2rem; margin-top: 20px; }
+        
+        .sub-section { background: #fff; padding: 15px; border-radius: 8px; border: 1px dashed #ccc; margin-top: 15px; }
+        .item-row { display: flex; gap: 10px; align-items: flex-end; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px; }
+        .item-row div { flex: 1; }
+        
+        .badge-id { position: absolute; top: -10px; right: 10px; background: #333; color: white; padding: 2px 10px; border-radius: 10px; font-size: 0.7rem; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>⚙️ Painel de Gestão Zap22</h1>
+    
+    <div class="section">
+        <label>Passo 1: Carregar banco de dados atual</label>
+        <input type="file" id="fileInput" accept=".json">
+        <button class="btn" onclick="loadFile()" style="background: #333; color: white;">Carregar stores.json</button>
+    </div>
+
+    <div id="editor" style="display:none;">
+        <div id="storesList"></div>
+        <button class="btn btn-add" onclick="addStore()">+ Adicionar Novo Comércio</button>
+        
+        <div class="section" style="background: #fffbe6;">
+            <p><strong>⚠️ Atenção:</strong> Após baixar o novo arquivo, substitua o `stores.json` antigo na sua pasta do projeto.</p>
+            <button class="btn btn-save" onclick="saveJSON()">Baixar stores.json Atualizado</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let db = { stores: [] };
+
+    function loadFile() {
+        const file = document.getElementById('fileInput').files[0];
+        if (!file) return alert("Selecione o arquivo!");
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            db = JSON.parse(e.target.result);
+            render();
+            document.getElementById('editor').style.display = 'block';
+        };
+        reader.readAsText(file);
+    }
+
+    function render() {
+        const list = document.getElementById('storesList');
+        list.innerHTML = '';
+        
+        db.stores.forEach((store, sIdx) => {
+            const div = document.createElement('div');
+            div.className = 'store-card';
+            div.innerHTML = `
+                <span class="badge-id">ID: ${store.id}</span>
+                <h3>Comércio: ${store.name || 'Sem nome'}</h3>
+                
+                <div class="grid-2">
+                    <div><label>Nome do Estabelecimento</label><input type="text" value="${store.name}" onchange="update(${sIdx}, 'name', this.value)"></div>
+                    <div><label>Slug (URL amigável)</label><input type="text" value="${store.slug}" onchange="update(${sIdx}, 'slug', this.value)"></div>
+                </div>
+
+                <div class="grid-3">
+                    <div><label>Categoria (Ex: Bar)</label><input type="text" value="${store.category}" onchange="update(${sIdx}, 'category', this.value)"></div>
+                    <div><label>WhatsApp (DDI+DDD+Num)</label><input type="text" value="${store.whatsapp}" onchange="update(${sIdx}, 'whatsapp', this.value)"></div>
+                    <div><label>Caminho da Logo</label><input type="text" value="${store.logo}" onchange="update(${sIdx}, 'logo', this.value)"></div>
+                </div>
+
+                <label>Endereço Completo</label>
+                <input type="text" value="${store.address}" onchange="update(${sIdx}, 'address', this.value)">
+
+                <div class="grid-2">
+                    <div><label>Latitude</label><input type="number" step="any" value="${store.lat}" onchange="update(${sIdx}, 'lat', parseFloat(this.value))"></div>
+                    <div><label>Longitude</label><input type="number" step="any" value="${store.lng}" onchange="update(${sIdx}, 'lng', parseFloat(this.value))"></div>
+                </div>
+
+                <div class="sub-section">
+                    <h4>📍 Bairros atendidos e Taxas</h4>
+                    <div id="neighborhoods-${sIdx}"></div>
+                    <button class="btn btn-add" style="font-size: 0.7rem;" onclick="addNeighborhood(${sIdx})">+ Bairro</button>
+                </div>
+
+                <div class="sub-section">
+                    <h4>📦 Cardápio / Produtos</h4>
+                    <div id="products-${sIdx}"></div>
+                    <button class="btn btn-add" style="font-size: 0.7rem;" onclick="addProduct(${sIdx})">+ Produto</button>
+                </div>
+
+                <div style="text-align: right; margin-top: 20px;">
+                    <button class="btn btn-del" onclick="removeStore(${sIdx})">Excluir Comércio Inteiro</button>
+                </div>
+            `;
+            list.appendChild(div);
+            renderNeighborhoods(sIdx);
+            renderProducts(sIdx);
+        });
+    }
+
+    // Gerenciamento de Bairros
+    function renderNeighborhoods(sIdx) {
+        const container = document.getElementById(`neighborhoods-${sIdx}`);
+        container.innerHTML = '';
+        db.stores[sIdx].deliveryNeighborhoods.forEach((n, nIdx) => {
+            const row = document.createElement('div');
+            row.className = 'item-row';
+            row.innerHTML = `
+                <div><label>Bairro</label><input type="text" value="${n.name}" onchange="db.stores[${sIdx}].deliveryNeighborhoods[${nIdx}].name = this.value"></div>
+                <div style="max-width: 120px;"><label>Taxa (R$)</label><input type="number" step="0.01" value="${n.fee}" onchange="db.stores[${sIdx}].deliveryNeighborhoods[${nIdx}].fee = parseFloat(this.value)"></div>
+                <button class="btn btn-del" onclick="removeNeighborhood(${sIdx}, ${nIdx})">x</button>
+            `;
+            container.appendChild(row);
+        });
+    }
+
+    // Gerenciamento de Produtos
+    function renderProducts(sIdx) {
+        const container = document.getElementById(`products-${sIdx}`);
+        container.innerHTML = '';
+        db.stores[sIdx].products.forEach((p, pIdx) => {
+            const row = document.createElement('div');
+            row.className = 'item-row';
+            row.innerHTML = `
+                <div><label>Produto</label><input type="text" value="${p.name}" onchange="db.stores[${sIdx}].products[${pIdx}].name = this.value"></div>
+                <div style="max-width: 100px;"><label>Preço</label><input type="number" step="0.01" value="${p.price}" onchange="db.stores[${sIdx}].products[${pIdx}].price = parseFloat(this.value)"></div>
+                <div><label>Categoria</label><input type="text" value="${p.category}" onchange="db.stores[${sIdx}].products[${pIdx}].category = this.value"></div>
+                <div><label>Caminho Imagem</label><input type="text" value="${p.image}" onchange="db.stores[${sIdx}].products[${pIdx}].image = this.value"></div>
+                <button class="btn btn-del" onclick="removeProduct(${sIdx}, ${pIdx})">x</button>
+            `;
+            container.appendChild(row);
+        });
+    }
+
+    // Funções de Ação
+    function update(idx, field, val) { db.stores[idx][field] = val; }
+    
+    function addStore() {
+        db.stores.push({ id: "st"+Date.now(), slug: "novo", name: "Nova Loja", category: "Bar", logo: "img/logo.png", whatsapp: "", address: "", lat: 0, lng: 0, deliveryNeighborhoods: [], products: [] });
+        render();
+    }
+    
+    function removeStore(idx) { if(confirm("Apagar comércio permanentemente?")) { db.stores.splice(idx, 1); render(); } }
+
+    function addNeighborhood(sIdx) { db.stores[sIdx].deliveryNeighborhoods.push({ name: "Novo Bairro", fee: 0 }); renderNeighborhoods(sIdx); }
+    function removeNeighborhood(sIdx, nIdx) { db.stores[sIdx].deliveryNeighborhoods.splice(nIdx, 1); renderNeighborhoods(sIdx); }
+
+    function addProduct(sIdx) { db.stores[sIdx].products.push({ id: "p"+Date.now(), name: "Novo Produto", desc: "", price: 0, category: "Bebidas", image: "img/placeholder.jpg" }); renderProducts(sIdx); }
+    function removeProduct(sIdx, pIdx) { db.stores[sIdx].products.splice(pIdx, 1); renderProducts(sIdx); }
+
+    function saveJSON() {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db, null, 2));
+        const downloadLink = document.createElement('a');
+        downloadLink.setAttribute("href", dataStr);
+        downloadLink.setAttribute("download", "stores.json");
+        downloadLink.click();
+    }
+</script>
+</body>
+</html>
