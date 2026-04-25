@@ -32,26 +32,26 @@
         {
           "id": "p1",
           "name": "Cerveja antartica 290ml",
-          "desc": "",
-          "price": 5.9,
-          "category": "bebidas",
-          "image": "img/bardoze/antartica.jpg"
+          "desc": "Sem gás",
+          "price": 4.5,
+          "category": "Bebidas",
+          "image": "carlinho/antartica.jpg"
         },
         {
           "id": "p2",
-          "name": "Coca cola 290ml",
-          "desc": "",
-          "price": 6.9,
-          "category": "Bebidas",
-          "image": "img/bardoze/coca.png"
+          "name": "Coca Cola lata",
+          "desc": "Tradicional",
+          "price": 9.9,
+          "category": "Padaria",
+          "image": "carlinho/coca.png"
         },
         {
-          "id": "p1776128147891",
-          "name": "Churrasquinho de carne",
-          "desc": "",
-          "price": 7,
-          "category": "Petiscos",
-          "image": "img/carlinho/churras.jpeg"
+          "id": "p3",
+          "name": "Fardo Heineken com 12 unidades",
+          "desc": "Integral",
+          "price": 6.2,
+          "category": "Laticínios",
+          "image": "carlinho/fardoheineken.jpg"
         }
       ]
     },
@@ -68,38 +68,69 @@
       "deliveryNeighborhoods": [
         {
           "name": "Centro",
-          "fee": 4,
-          "etaMin": 20,
-          "etaMax": 40
+          "fee": 5
         },
         {
-          "name": "Santa Luzia",
-          "fee": 6,
-          "etaMin": 30,
-          "etaMax": 55
+          "name": "Vila Nova",
+          "fee": 7
+        },
+        {
+          "name": "Jardins",
+          "fee": 9
+        },
+        {
+          "name": "Jardim Carioca",
+          "fee": 2
         }
       ],
       "products": [
         {
           "id": "m1",
-          "name": "Água 1,5L",
+          "name": "Cerveja antartica 290ml",
           "desc": "Sem gás",
           "price": 4.5,
-          "category": "Bebidas"
+          "category": "Bebidas",
+          "image": "boagelada/antartica.jpg"
         },
         {
           "id": "m2",
-          "name": "Pão de forma",
+          "name": "Coca Cola lata",
           "desc": "Tradicional",
           "price": 9.9,
-          "category": "Padaria"
+          "category": "Padaria",
+          "image": "boagelada/coca.png"
         },
         {
           "id": "m3",
-          "name": "Leite 1L",
+          "name": "Fardo Heineken com 12 unidades",
           "desc": "Integral",
           "price": 6.2,
-          "category": "Laticínios"
+          "category": "Laticínios",
+          "image": "boagelada/fardoheineken.jpg"
+        },
+        {
+          "id": "m4",
+          "name": "Cerveja antartica 290ml",
+          "desc": "Sem gás",
+          "price": 4.5,
+          "category": "Bebidas",
+          "image": "boagelada/antartica.jpg"
+        },
+        {
+          "id": "m5",
+          "name": "Coca Cola lata",
+          "desc": "Tradicional",
+          "price": 9.9,
+          "category": "Padaria",
+          "image": "boagelada/coca.png"
+        },
+        {
+          "id": "m6",
+          "name": "Fardo Heineken com 12 unidades",
+          "desc": "Integral",
+          "price": 6.2,
+          "category": "Laticínios",
+          "image": "boagelada/fardoheineken.jpg"
         }
       ]
     }

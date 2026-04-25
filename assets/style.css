@@ -152,7 +152,6 @@ a{ color:inherit; text-decoration:none }
   color: #fff;
 }
 /* ===== HERO ===== */
-/* ===== HERO COM IMAGEM (LIMPO E LEGÍVEL) ===== */
 .hero {
   position: relative;
   overflow: hidden;
@@ -164,7 +163,7 @@ a{ color:inherit; text-decoration:none }
   /* imagem */
   background-image: url("../img/hero.png");
   background-size: cover;
-  background-position: center;
+  background-position: center 50%;
   background-repeat: no-repeat;
 }
 .hero p {
@@ -353,34 +352,76 @@ textarea{ min-height:90px; resize:vertical }
 /* ===== GRID / CARDS ===== */
 .grid{
   display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap:14px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap:18px;
+
+  max-width: 1000px;
+  margin: 0 auto;
 }
-@media (max-width:900px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
-@media (max-width:560px){ .grid{ grid-template-columns: 1fr; } }
 
 .card{
-  border:1px solid rgba(0,0,0,.10);
+  position: relative;
+  border:1px solid rgba(0,0,0,.06);
   background: var(--card);
   border-radius:18px;
   padding:14px;
-  box-shadow: var(--shadow);
-}
-.card h3{ margin:0 0 6px 0; color: var(--dark) }
 
-.small{ font-size:13px; color: var(--muted) }
+  box-shadow: 0 6px 18px rgba(0,0,0,.06);
+
+  transition: all .25s ease;
+  cursor: pointer;
+}
+
+.card:hover{
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 14px 32px rgba(0,0,0,.12);
+  border-color: rgba(255,106,0,.25);
+}
+
+.card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:18px;
+  pointer-events:none;
+  transition:.25s ease;
+}
+
+.card:hover::after{
+  box-shadow: inset 0 0 0 1px rgba(255,106,0,.25);
+}
+
+.card:active{
+  transform: scale(0.98);
+}
+
+.card h3{
+  margin:0 0 6px 0;
+  color: var(--dark);
+  font-size: 1.05rem;
+}
+
+.small{
+  font-size:13px;
+  color: var(--muted);
+  line-height: 1.4;
+}
 
 .badge{
   display:inline-flex;
   align-items:center;
   gap:6px;
   padding:6px 10px;
+
   border-radius:999px;
-  border:1px solid rgba(0,0,0,.12);
+  border:1px solid rgba(0,0,0,.08);
+
   color: var(--muted);
   font-size:12px;
-  background: rgba(0,0,0,.02);
+
+  background: rgba(0,0,0,.03);
 }
+
 
 /* ===== LAYOUT LOJA ===== */
 
@@ -715,7 +756,7 @@ textarea{ min-height:90px; resize:vertical }
 .product-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 
