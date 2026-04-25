@@ -383,12 +383,6 @@ textarea{ min-height:90px; resize:vertical }
 }
 
 /* ===== LAYOUT LOJA ===== */
-.split{
-  display:grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap:14px;
-}
-@media (max-width:900px){ .split{ grid-template-columns: 1fr; } }
 
 .map{
   width:100%;
