@@ -47,11 +47,6 @@ a {
   margin:0 auto;
   padding:16px;
 }
-.row {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap
-}
 
 .spacer {
   height: 14px
