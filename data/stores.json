@@ -2,10 +2,10 @@
   "stores": [
     {
       "id": "store1",
-      "slug": "bar-do-carlinho",
-      "name": "Bar do Carlinho",
-      "category": "Bar",
-      "logo": "carlinho/carlinho.jpeg",
+      "slug": "lanchonete-do-carlinho",
+      "name": "Lanchonete do Carlinho",
+      "category": "Lanchonete",
+      "logo": "carlinho/logo.png",
       "whatsapp": "5522997407901",
       "address": "Rua Waltamar Fernandes Pimentel, 21 - Jardim Carioca",
       "lat": -21.7514527,
@@ -31,36 +31,48 @@
       "products": [
         {
           "id": "p1",
-          "name": "Cerveja antartica 290ml",
-          "desc": "Sem gás",
-          "price": 4.5,
-          "category": "Bebidas",
-          "image": "carlinho/antartica.jpg"
+          "name": "X-Burguer Duplo",
+          "desc": "Hambúrguer, queijo, alface, tomate e maionese artesanal",
+          "price": 22.5,
+          "category": "Lanches",
+          "image": "img/xburguer.jpg",
+          "requiresObs": true
         },
         {
           "id": "p2",
           "name": "Coca Cola lata",
-          "desc": "Tradicional",
-          "price": 9.9,
-          "category": "Padaria",
-          "image": "carlinho/coca.png"
+          "desc": "Tradicional 350ml gelada",
+          "price": 6.0,
+          "category": "Bebidas",
+          "image": "img/coca.png",
+          "requiresObs": false
         },
         {
           "id": "p3",
-          "name": "Fardo Heineken com 12 unidades",
-          "desc": "Integral",
-          "price": 6.2,
-          "category": "Laticínios",
-          "image": "carlinho/fardoheineken.jpg"
+          "name": "Batata Frita Suprema",
+          "desc": "Porção média com cheddar e bacon ralado",
+          "price": 18.0,
+          "category": "Porções",
+          "image": "img/batata.jpg",
+          "requiresObs": true
+        },
+        {
+          "id": "p1778989694347",
+          "name": "Suco Natural de Laranja",
+          "desc": "Garrafa 500ml feito na hora",
+          "price": 8.5,
+          "category": "Bebidas",
+          "image": "img/suco-laranja.png",
+          "requiresObs": false
         }
       ]
     },
     {
       "id": "store2",
-      "slug": "bar-boa-gelada",
-      "name": "Bar boa gelada",
-      "category": "Distribuidora de bebidas",
-      "logo": "boagelada/logo2.png",
+      "slug": "pizzaria-boa-massa",
+      "name": "Pizzaria Boa Massa",
+      "category": "Pizzaria",
+      "logo": "bardoze/logo2.png",
       "whatsapp": "5511988888888",
       "address": "Av. Principal, 500 - Centro",
       "lat": -23.5512,
@@ -86,51 +98,57 @@
       "products": [
         {
           "id": "m1",
-          "name": "Cerveja antartica 290ml",
-          "desc": "Sem gás",
-          "price": 4.5,
-          "category": "Bebidas",
-          "image": "boagelada/antartica.jpg"
+          "name": "Pizza Calabresa Grande",
+          "desc": "Molho, muçarela, calabresa fatiada, cebola e orégano",
+          "price": 42.0,
+          "category": "Pizzas Tradicionais",
+          "image": "img/calabresa.jpg",
+          "requiresObs": true
         },
         {
           "id": "m2",
-          "name": "Coca Cola lata",
-          "desc": "Tradicional",
-          "price": 9.9,
-          "category": "Padaria",
-          "image": "boagelada/coca.png"
+          "name": "Guaraná Antarctica 2L",
+          "desc": "Refrigerante bem gelado",
+          "price": 11.0,
+          "category": "Bebidas",
+          "image": "img/guarana2l.png",
+          "requiresObs": false
         },
         {
           "id": "m3",
-          "name": "Fardo Heineken com 12 unidades",
-          "desc": "Integral",
-          "price": 6.2,
-          "category": "Laticínios",
-          "image": "boagelada/fardoheineken.jpg"
+          "name": "Pizza Quatro Queijos Grande",
+          "desc": "Muçarela, catupiry, provolone e gorgonzola",
+          "price": 48.0,
+          "category": "Pizzas Especiais",
+          "image": "img/quatroqueijos.jpg",
+          "requiresObs": true
         },
         {
           "id": "m4",
-          "name": "Cerveja antartica 290ml",
-          "desc": "Sem gás",
-          "price": 4.5,
-          "category": "Bebidas",
-          "image": "boagelada/antartica.jpg"
+          "name": "Pizza Frango com Catupiry",
+          "desc": "Frango desfiado temperado e legítimo catupiry",
+          "price": 46.0,
+          "category": "Pizzas Tradicionais",
+          "image": "img/frangocatupiry.jpg",
+          "requiresObs": true
         },
         {
           "id": "m5",
-          "name": "Coca Cola lata",
-          "desc": "Tradicional",
-          "price": 9.9,
-          "category": "Padaria",
-          "image": "boagelada/coca.png"
+          "name": "Água Mineral Sem Gás",
+          "desc": "Garrafa 500ml",
+          "price": 4.0,
+          "category": "Bebidas",
+          "image": "img/agua.png",
+          "requiresObs": false
         },
         {
           "id": "m6",
-          "name": "Fardo Heineken com 12 unidades",
-          "desc": "Integral",
-          "price": 6.2,
-          "category": "Laticínios",
-          "image": "boagelada/fardoheineken.jpg"
+          "name": "Pizza Doce de Prestígio",
+          "desc": "Chocolate ao leite coberto com coco ralado",
+          "price": 38.0,
+          "category": "Pizzas Doces",
+          "image": "img/prestigio.jpg",
+          "requiresObs": true
         }
       ]
     }

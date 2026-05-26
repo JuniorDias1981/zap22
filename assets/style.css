@@ -179,7 +179,7 @@ a {
   box-shadow: var(--shadow);
 
   /* imagem */
-  background-image: url("../img/hero.png");
+  background-image: url("/img/hero.png");
   background-size: cover;
   background-position: center 50%;
   background-repeat: no-repeat;
@@ -351,7 +351,81 @@ textarea {
   min-height: 90px;
   resize: vertical
 }
+/* ---------- Container da Busca e Filtros ---------- */
+.search-container {
+  width: 100%;
+  max-width: 1200px; /* Alinhe com a largura máxima do seu grid */
+  margin: 0 auto 20px auto;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
 
+/* Campo de Entrada de Texto */
+#searchInput {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+#searchInput:focus {
+  border-color: #25d366; /* Verde WhatsApp padrão do Zap22 */
+}
+
+/* Select de Ordenação */
+#sortOrder {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Container dos Chips de Categoria */
+#categoryContainer {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto; /* Permite arrastar para o lado no celular */
+  padding: 10px 0;
+  margin-top: 10px;
+  scrollbar-width: none; /* Esconde a barra de rolagem no Firefox */
+}
+
+#categoryContainer::-webkit-scrollbar {
+  display: none; /* Esconde a barra de rolagem no Chrome/Safari */
+}
+
+/* Estilo Individual dos Botões de Categoria */
+.chip {
+  padding: 8px 16px;
+  background-color: #eee;
+  color: #333;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap; /* Impede o texto de quebrar linha */
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.chip:hover {
+  background-color: #e0e0e0;
+}
+
+/* Estado Ativo da Categoria Selecionada */
+.chip.active {
+  background-color: #25d366;
+  color: #fff;
+  font-weight: bold;
+}
 /* ===== BOTÕES ===== */
 .btn {
   border: 0;
@@ -715,6 +789,50 @@ textarea {
 .pill.danger {
   border-color: rgba(239, 68, 68, .28);
   color: #7f1d1d;
+}
+
+/* Espaçamento geral dos blocos do formulário */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.form-field label {
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+/* Container flexível para colocar campos lado a lado */
+.form-group-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.form-group-row .form-field {
+  margin-bottom: 0; /* Reseta a margem para usar o gap do container */
+}
+
+/* Proporções dos campos */
+.flex-1 { flex: 1; min-width: 140px; }
+.flex-2 { flex: 2; min-width: 200px; }
+.flex-3 { flex: 3; min-width: 220px; }
+
+/* Estilização básica para o Textarea se igualar aos inputs */
+textarea.input {
+  resize: vertical;
+  font-family: inherit;
+}
+
+.checkout-actions {
+  margin-top: 24px;
+}
+
+.text-center {
+  text-align: center;
+  margin-top: 10px;
 }
 
 /* ===== PÁGINA SOBRE ===== */
@@ -1138,4 +1256,15 @@ textarea {
 input, select, textarea{
   width:100%;
   max-width:100%;
+}
+
+/* Styling para as observações individuais dos lanches no carrinho */
+.cart-item .small {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: #ff5722; /* Cor de destaque para o chapeiro bater o olho e ver a mudança */
+  font-style: italic;
+  line-height: 1.3;
+  padding-left: 4px;
+  border-left: 2px solid #ff5722; /* Uma barrinha lateral para dar um charme profissional */
 }

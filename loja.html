@@ -34,9 +34,10 @@
 <button id="shareBtn" class="btn-share strong share-fixed">
   📲 Compartilhar
 </button>
-     <nav class="nav">
-  <a href="index.html" class="nav-btn active">Início</a>
+       <nav class="nav">
+  <a href="index.html" class="nav-btn">Início</a>
   <a href="sobre.html" class="nav-btn">Sobre</a>
+  <a href="download.html" class="nav-btn">Download</a>
 </nav>
     </div>
   </div>
@@ -152,70 +153,60 @@
         <section id="checkout" class="card">
           <h3 style="margin-top:0">Entrega</h3>
 
-<div class="row">
-  
-    <label class="small">*Nome</label>
-    <input id="cName" class="input" required />
+<div class="form-group-row">
+  <div class="form-field flex-2">
+    <label for="cName" class="small">* Nome</label>
+    <input id="cName" class="input" placeholder="Seu nome completo" required />
   </div>
-
-  <div style="flex:1; min-width: 240px">
-    <label class="small">Telefone (opcional)</label>
-    <input id="cPhone" class="input" />
-  </div>
-</div>
-
-<div class="spacer"></div>
-
-<div class="row">
-  <div style="flex:2; min-width: 240px">
-    <label class="small">*Rua</label>
-    <input id="cStreet" class="input" required />
-  </div>
-
-  <div style="flex:1; min-width: 160px">
-    <label class="small">*Número</label>
-    <input id="cNumber" class="input" required />
+  <div class="form-field flex-1">
+    <label for="cPhone" class="small">Telefone (opcional)</label>
+    <input id="cPhone" class="input" placeholder="(22) 99999-0000" />
   </div>
 </div>
 
-<div class="spacer"></div>
-
-<div class="row">
-  <div style="flex:1; min-width: 240px">
-    <label class="small">Complemento</label>
-    <input id="cComp" class="input" />
+<div class="form-group-row">
+  <div class="form-field flex-3">
+    <label for="cStreet" class="small">* Rua</label>
+    <input id="cStreet" class="input" placeholder="Nome da rua" required />
   </div>
-
-  <div style="flex:1; min-width: 240px">
-    <label class="small">Referência</label>
-    <input id="cRef" class="input" />
+  <div class="form-field flex-1">
+    <label for="cNumber" class="small">* Número</label>
+    <input id="cNumber" class="input" placeholder="Ex: 123" required />
   </div>
 </div>
 
-<div class="spacer"></div>
+<div class="form-group-row">
+  <div class="form-field flex-1">
+    <label for="cComp" class="small">Complemento</label>
+    <input id="cComp" class="input" placeholder="Apt, bloco, fundos..." />
+  </div>
+  <div class="form-field flex-1">
+    <label for="cRef" class="small">Referência</label>
+    <input id="cRef" class="input" placeholder="Ex: Próximo ao mercado" />
+  </div>
+</div>
 
-<label class="small">*Forma de pagamento</label>
-<select id="cPayment" class="input" required>
-  <option value="">Selecione...</option>
-  <option value="Dinheiro">Dinheiro</option>
-  <option value="Pix">Pix</option>
-  <option value="Cartão">Cartão</option>
-</select>
+<div class="form-field">
+  <label for="cPayment" class="small">* Forma de pagamento</label>
+  <select id="cPayment" class="input" required>
+    <option value="">Selecione...</option>
+    <option value="Dinheiro">Dinheiro</option>
+    <option value="Pix">Pix</option>
+    <option value="Cartão">Cartão</option>
+  </select>
+</div>
 
-<div class="spacer"></div>
+<div class="form-field">
+  <label for="cObs" class="small">Observações do Pedido</label>
+  <textarea id="cObs" class="input" rows="3" placeholder="Ex: Tirar cebola, troco para R$ 50..."></textarea>
+</div>
 
-<label class="small">Observações</label>
-<textarea id="cObs"></textarea>
-
-<div class="spacer"></div>
-
-<button id="finishBtn" class="btn primary glow block" disabled>
-  Finalizar no WhatsApp
-</button>
-
-<div class="small" id="checkoutHint" style="margin-top:10px"></div>
-        </section>
-      </section>
+<div class="checkout-actions">
+  <button id="finishBtn" class="btn primary glow block" disabled>
+    Finalizar no WhatsApp
+  </button>
+  <div id="checkoutHint" class="small text-center"></div>
+</div>
 </div>
 </main>
 
